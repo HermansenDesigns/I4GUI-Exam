@@ -1,0 +1,134 @@
+﻿<UserControl x:Class="MVVMSample.PresentationLayer.Views.PatientDetailView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:ViewModels="clr-namespace:MVVMSample.PresentationLayer.ViewModels">
+    <!--
+        Bind the View Model to the View. 
+        Observe that while the view is aware of what view model it is using.. the converse is not true.
+        The View and the ViewModel can be constructed by 2 different persons since they are independent of each other and later be integrated.
+        Previously since everything is written in events.. it is possible to write the implementation only after developing the UI.
+        Using MVVM 2 developers can work simultaneously and integrate later reducing the development time.
+        Also notice if everything is written in codebehind Events it would be very difficult to write unit tests as we need to 
+        trigger an event to test it.
+        And since we are minimising the use of events also get rid of all its problems like .. we need to remember to 
+        unsubsribe every event to avoid a memory leak.
+        -->
+    <UserControl.DataContext>
+        <ViewModels:PatientDetailViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <!--TextBoxErrorTemplate is used to show validation Errors. Bind this to any control you wish to validate.-->
+        <ControlTemplate x:Key="TextBoxErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Bottom" Foreground="Red" FontSize="6pt" 
+                           Text="{Binding ElementName=MyAdorner,Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"/>
+                <Border BorderBrush="Red" BorderThickness="1" Width="120" >
+                    <AdornedElementPlaceholder Name="MyAdorner" />
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <Grid Name="GridPatientDetailView">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Name="GridPatientControl" 
+              HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="5*"  />
+                <RowDefinition Height="10*" />
+            </Grid.RowDefinitions>
+
+            <Label Name="LblID" Content="Id :" 
+               Grid.Row="0" Grid.Column="0" 
+               HorizontalAlignment="Right" />
+            <Label Name="LblName" Content="Name :"
+               Grid.Row="1" Grid.Column="0" 
+               HorizontalAlignment="Right" />
+            <Label Name="LblMobileNumber" Content="Mobile No. :"
+               Grid.Row="2" Grid.Column="0" 
+               HorizontalAlignment="Right" />
+
+            <TextBox Name="TbxId" 
+                 Grid.Row="0" Grid.Column="1" 
+                 HorizontalAlignment="Left"
+                 Validation.ErrorTemplate="{StaticResource TextBoxErrorTemplate}">
+                 <TextBox.Text>
+                    <Binding Path="Id">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+                     
+            <TextBox Name="TbxName" 
+                 Grid.Row="1" Grid.Column="1" 
+                 HorizontalAlignment="Left" 
+                 Text="{Binding Path=Name}"/>
+            <TextBox Name="TbxMobileNumber" 
+                 Grid.Row="2" Grid.Column="1" 
+                 HorizontalAlignment="Left" >
+                <TextBox.Text>
+                    <Binding Path="MobileNumber">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <Grid Name="GridBtns" 
+                  Grid.Row="4" Grid.ColumnSpan="2" 
+                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Name="BtnAdd" Content="Add"
+                    Grid.Column="0" 
+                    HorizontalAlignment="Center" 
+                    Command="{Binding AddPatientCmd}"/>
+                <Button Name="BtnSearch" Content="Search"
+                    Grid.Column="1" 
+                    HorizontalAlignment="Center"
+                    Command="{Binding SearchPatientCmd}"/>
+                <Button Name="BtnDelete" Content="Delete"
+                    Grid.Column="2" 
+                    HorizontalAlignment="Center"
+                    Command="{Binding DeletePatientCmd}"/>
+
+            </Grid>
+
+        </Grid>
+        <ListView Name="LstPatients" 
+                  Grid.Column="3" 
+                  ItemsSource="{Binding Path = Patients}" 
+                  SelectedItem="{Binding Path = SelectedPatient}">
+             <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Id" 
+                                    Width="50"
+                                    DisplayMemberBinding="{Binding Path=Id}" />
+                    <GridViewColumn Header="Name" 
+                                    Width="100"
+                                    DisplayMemberBinding="{Binding Path=Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+    
+    
+</UserControl>
