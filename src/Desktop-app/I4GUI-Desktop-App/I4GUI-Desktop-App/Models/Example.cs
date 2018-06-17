@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace I4GUI_Desktop_App.Models
 {
-    public class Patient
+    public class Example
     {
-        
+        public int Id { get; set; }
+
     }
 }
