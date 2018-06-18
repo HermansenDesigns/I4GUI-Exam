@@ -1,0 +1,159 @@
+﻿<Window x:Class="I4GUI_Desktop_App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:I4GUI_Desktop_App"
+        xmlns:viewModels="clr-namespace:I4GUI_Desktop_App.ViewModels"
+        xmlns:models="clr-namespace:I4GUI_Desktop_App.Models"
+        xmlns:utility="clr-namespace:I4GUI_Desktop_App.Utility"
+        Title="VarreoCounter" Height="800" Width="1200">
+    <Window.DataContext>
+        <viewModels:VarroaViewModel />
+    </Window.DataContext>
+    <Grid MaxHeight="800" MaxWidth="1200">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="1000"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label x:Name="Heading" 
+                   FontSize="16" 
+                   Grid.Row="0"
+                   Grid.ColumnSpan="3" FontWeight="Bold">
+                Varroa Mite Counter
+            </Label>
+            <Button x:Name="Add" 
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Content="Add" 
+                    HorizontalAlignment="Center"  
+                    VerticalAlignment="Top"
+                    Width="75"
+                    Command="{Binding AddCommand}"/>
+            <Button x:Name="Delete"
+                    Grid.Row="1" 
+                    Grid.Column="1" 
+                    Content="Delete" 
+                    HorizontalAlignment="Center"  
+                    VerticalAlignment="Top" Width="75" 
+                    Command="{Binding DeleteCommand}"/>
+            <Button x:Name="Duplicate"
+                    Grid.Row="1" 
+                    Grid.Column="2" 
+                    Content="Duplicate" 
+                    HorizontalAlignment="Center"  
+                    VerticalAlignment="Top" 
+                    Width="75" 
+                    Command="{Binding DuplicateCommand}"/>
+            <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" MaxWidth="600"/>
+                    <ColumnDefinition Width="Auto" MaxWidth="600"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" 
+                       Grid.Column="0" 
+                       Content="Beehive" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" 
+                         Grid.Column="1" 
+                         HorizontalAlignment="Center" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ElementName=View, Path=SelectedItem.BeeHive}" 
+                         VerticalAlignment="Center" 
+                         Width="120"/>
+                <Label Grid.Row="1" 
+                       Grid.Column="0" 
+                       Content="Date of count" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" 
+                         Grid.Column="1" 
+                         HorizontalAlignment="Center" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ElementName=View, Path=SelectedItem.DateOfCount}" 
+                         VerticalAlignment="Center" 
+                         Width="120"/>
+
+                <Label Grid.Row="2" 
+                       Grid.Column="0" 
+                       Content="Amount of Varroa" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" 
+                         Grid.Column="1" 
+                         HorizontalAlignment="Center" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ElementName=View, Path=SelectedItem.Amount}" 
+                         VerticalAlignment="Center" 
+                         Width="120"/>
+                <Label Grid.Row="3" 
+                       Grid.Column="0" 
+                       Grid.ColumnSpan="2"
+                       Content="Comments" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" 
+                         TextWrapping="Wrap"
+                         AcceptsReturn="True"
+                         Text="{Binding ElementName=View, Path=SelectedItem.Comments}" 
+                         Grid.ColumnSpan="2" 
+                         Grid.Column="0"/>
+
+                <Label Grid.Row="5" 
+                       Grid.Column="0" 
+                       Content="Search" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="5" 
+                         Grid.Column="1" 
+                         HorizontalAlignment="Center" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding ElementName=View, Path=SelectedItem.Comments}" 
+                         VerticalAlignment="Center" 
+                         Width="120"/>
+            </Grid>
+        </Grid>
+
+        <ListBox x:Name="View" 
+                 Grid.Column="1" 
+                 Grid.Row="0"
+                 IsSynchronizedWithCurrentItem="True"
+                 ItemsSource="{Binding }" 
+                 SelectedIndex="{Binding Path=CurrentIndex}"
+                 SelectedItem="{Binding Path=CurrentHive}"
+                 Width="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="Block" Width="50" Text="{Binding Path=Amount}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+    </Grid>
+</Window>
