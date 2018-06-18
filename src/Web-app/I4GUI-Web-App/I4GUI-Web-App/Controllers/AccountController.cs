@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using I4GUI_Web_App.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -130,7 +131,39 @@ namespace I4GUI_Web_App.Controllers
             return View(model);
         }
 
+        [HttpGet]	
+        [AllowAnonymous]	
+        public IActionResult ForgotPassword()
+        {	
+            return View();	
+        }
+
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed	
+                    return RedirectToAction(nameof(ForgotPasswordConfirmation));
+                }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]	
+        [AllowAnonymous]	
+        public IActionResult ForgotPasswordConfirmation()
+        {	
+            return View();	
+        }
+
+    [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
