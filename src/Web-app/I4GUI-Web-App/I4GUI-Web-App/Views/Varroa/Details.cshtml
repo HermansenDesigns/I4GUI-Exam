@@ -1,0 +1,60 @@
+﻿@model I4GUIWebApp.Models.VarroaCount
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VarroaCount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Beehive)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Beehive)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DOC)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DOC)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Varroa)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Varroa)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ObservationLength)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ObservationLength)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.User.ZipCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.User.ZipCode)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

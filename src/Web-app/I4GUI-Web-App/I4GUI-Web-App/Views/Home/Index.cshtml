@@ -1,4 +1,5 @@
-﻿@{
+﻿@model I4GUIWebApp.Models.HomeViewModels.VarroaListViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -64,6 +65,34 @@
         <span class="sr-only">Next</span>
     </a>
 </div>
+
+
+<h4>Lists of Varroa pr. Zipcode</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Zip code
+        </th>
+        <th>
+            Median
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Varroa) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item2)
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
 
 <div class="row">
     <div class="col-md-3">

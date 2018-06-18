@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4GUI-Web-App", "I4GUI-Web-App\I4GUI-Web-App.csproj", "{445E3408-E122-4328-90AE-AF1140C5260F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "I4GUI-Web-App", "I4GUI-Web-App\I4GUI-Web-App.csproj", "{F66B839E-689A-4C9E-9CD7-45076E692844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{445E3408-E122-4328-90AE-AF1140C5260F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{445E3408-E122-4328-90AE-AF1140C5260F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{445E3408-E122-4328-90AE-AF1140C5260F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{445E3408-E122-4328-90AE-AF1140C5260F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F66B839E-689A-4C9E-9CD7-45076E692844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F66B839E-689A-4C9E-9CD7-45076E692844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F66B839E-689A-4C9E-9CD7-45076E692844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F66B839E-689A-4C9E-9CD7-45076E692844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {720E1EBF-BC7C-40FB-AD3D-920082E65559}
+		SolutionGuid = {E629989C-0DAE-4821-8F40-7605AE71C835}
 	EndGlobalSection
 EndGlobal
