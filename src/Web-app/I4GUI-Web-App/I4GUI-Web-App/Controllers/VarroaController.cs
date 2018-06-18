@@ -9,7 +9,6 @@ using I4GUIWebApp.Models;
 using I4GUIWebApp.Models.VarroaViewModels;
 using I4GUI_Web_App.Data;
 using I4GUI_Web_App.Models;
-using I4GUI_Web_App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -22,18 +21,15 @@ namespace I4GUI_Web_App.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         public VarroaController(ApplicationDbContext context,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
             _context = context;
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             _logger = logger;
         }
 

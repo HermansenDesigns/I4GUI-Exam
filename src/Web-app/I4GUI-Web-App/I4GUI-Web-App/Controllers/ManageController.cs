@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using I4GUI_Web_App.Models;
 using I4GUI_Web_App.Models.ManageViewModels;
-using I4GUI_Web_App.Services;
 
 namespace I4GUI_Web_App.Controllers
 {
@@ -28,7 +27,6 @@ namespace I4GUI_Web_App.Controllers
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-          IEmailSender emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {

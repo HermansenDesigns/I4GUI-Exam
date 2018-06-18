@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using I4GUI_Web_App.Data;
 using I4GUI_Web_App.Models;
-using I4GUI_Web_App.Services;
 
 namespace I4GUI_Web_App
 {
@@ -32,9 +31,6 @@ namespace I4GUI_Web_App
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
-            // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
         }
