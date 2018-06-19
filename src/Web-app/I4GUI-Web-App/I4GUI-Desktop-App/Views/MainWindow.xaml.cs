@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using I4GUI_Desktop_App.ViewModels;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace I4GUI_Desktop_App.Views
 {
@@ -10,6 +14,8 @@ namespace I4GUI_Desktop_App.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = MainViewModel.Instance;
         }
 
     }

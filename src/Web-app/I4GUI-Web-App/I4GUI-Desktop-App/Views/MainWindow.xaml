@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:I4GUI_Desktop_App"
         xmlns:viewModels="clr-namespace:I4GUI_Desktop_App.ViewModels"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:models="clr-namespace:I4GUI_Desktop_App.Models"
         xmlns:utility="clr-namespace:I4GUI_Desktop_App.Utility"
+        mc:Ignorable="d" 
         Title="VarreoCounter" Height="800" Width="1200">
-    <Window.DataContext>
-        <viewModels:VarroaViewModel />
-    </Window.DataContext>
     <Grid MaxHeight="800" MaxWidth="1200">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid DataContext="{Binding VarroaViewModel}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -28,7 +29,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="1000"></RowDefinition>
+                <RowDefinition Height="400"></RowDefinition>
             </Grid.RowDefinitions>
             <Label x:Name="Heading" 
                    FontSize="16" 
@@ -69,8 +70,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" 
                        Grid.Column="0" 
@@ -111,33 +114,63 @@
                          Width="120"/>
                 <Label Grid.Row="3" 
                        Grid.Column="0" 
+                       Content="Search" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"/>
+                <TextBox Grid.Row="3" 
+                         Grid.Column="1" 
+                         HorizontalAlignment="Center" 
+                         TextWrapping="Wrap" 
+                         Text="{Binding Path=Filter}" 
+                         VerticalAlignment="Center" 
+                         Width="120"/>
+                <Button x:Name="Search"
+                        Grid.Row="4" 
+                        Grid.Column="0" 
+                        Content="Search" 
+                        HorizontalAlignment="Center"  
+                        VerticalAlignment="Top" Width="75" 
+                        Command="{Binding SearchCommand}"/>
+                <Button x:Name="Reset"
+                        Grid.Row="4" 
+                        Grid.Column="1" 
+                        Content="Reset" 
+                        HorizontalAlignment="Center"  
+                        VerticalAlignment="Top" Width="75" 
+                        Command="{Binding ResetCommand}"/>
+
+                <Button x:Name="Save"
+                        Grid.Row="5" 
+                        Grid.Column="0" 
+                        Content="Save" 
+                        HorizontalAlignment="Center"  
+                        VerticalAlignment="Top" Width="75" 
+                        Command="{Binding SaveCommand}"/>
+                <Button x:Name="Load"
+                        Grid.Row="5" 
+                        Grid.Column="1" 
+                        Content="Load" 
+                        HorizontalAlignment="Center"  
+                        VerticalAlignment="Top" Width="75" 
+                        Command="{Binding LoadCommand}"/>
+
+                <Label Grid.Row="6" 
+                       Grid.Column="0" 
                        Grid.ColumnSpan="2"
                        Content="Comments" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" 
+                <TextBox Grid.Row="7" 
                          TextWrapping="Wrap"
                          AcceptsReturn="True"
                          Text="{Binding ElementName=View, Path=SelectedItem.Comments}" 
                          Grid.ColumnSpan="2" 
                          Grid.Column="0"/>
-
-                <Label Grid.Row="5" 
-                       Grid.Column="0" 
-                       Content="Search" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"/>
-                <TextBox Grid.Row="5" 
-                         Grid.Column="1" 
-                         HorizontalAlignment="Center" 
-                         TextWrapping="Wrap" 
-                         Text="{Binding ElementName=View, Path=SelectedItem.Comments}" 
-                         VerticalAlignment="Center" 
-                         Width="120"/>
             </Grid>
         </Grid>
 
-        <ListBox x:Name="View" 
+        <ListBox DataContext="{Binding VarroaViewModel}"
+                 x:Name="View" 
                  Grid.Column="1" 
                  Grid.Row="0"
                  IsSynchronizedWithCurrentItem="True"
@@ -153,7 +186,41 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-
+        <ListBox DataContext="{Binding VarroaViewModel}"
+                 x:Name="SearchView" 
+                 Grid.Column="1" 
+                 Grid.Row="1"
+                 IsSynchronizedWithCurrentItem="True"
+                 ItemsSource="{Binding Path=SearchableHives}" 
+                 SelectedIndex="{Binding Path=CurrentIndex}"
+                 SelectedItem="{Binding Path=CurrentHive}"
+                 Width="200">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Name="Block" Width="50" Text="{Binding Path=Amount}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel DataContext="{Binding ChartViewModel}" 
+                    Grid.Column="2" 
+                    Grid.Row="0" 
+                    Grid.RowSpan="2" 
+                    Margin="0.333,0,-487,-0.333"
+                    Orientation="Vertical">
+            <Button Content="Calculate Graph" Command="{Binding CalculateGraphCommand}" />
+            <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Height="765">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Title="Dates" Labels="{Binding Labels}"></lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Amount of Varroa" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </StackPanel>
     </Grid>
 </Window>
+
+
+
