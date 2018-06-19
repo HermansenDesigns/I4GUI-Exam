@@ -9,7 +9,7 @@
         <p class="lead">Varroa mites are the pests of honey bees.</p>
         <hr class="my-4">
         <p>This site contains a logging mechanism to help track the growth of Varroa mites.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Register, is's free</a>
+        <a class="btn btn-primary btn-lg" asp-controller="Account" asp-action="Register" role="button">Register, is's free</a>
     </div>
 </div>
 
@@ -17,6 +17,7 @@
 <div id="ListOfVarroa">
     <div class="jumbotron">
         <h4>Lists of Varroa pr. Zipcode</h4>
+        <p>This table shows the mean of all the mites in each zipcode. This is to gain an overview over the different cities and their ability to fight the mites.</p>
         <table class="table">
             <thead>
             <tr>
@@ -24,7 +25,7 @@
                     Zip code
                 </th>
                 <th>
-                    Median
+                    Mean
                 </th>
                 <th></th>
             </tr>
